@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import Modal from './components/Modal';
 import './App.css';
 
 function App() {
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [open, setOpen] = useState(true);
+
+  const incrementCounter = () => setCounter(counter+1);
+
+  const confirm = () => setIsConfirmed(true);
+
+  const closeModal = () => setOpen(false);
+
+  const openModal = () => setOpen(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>Counter: {counter}</div>
+      <div>Confirmed: {isConfirmed ? "Registered" : "Not Registered"}</div>
+      <button onClick={openModal}>open modal</button>
+      { open ? (
+      <Modal>
+        <div className="modal">
+          <button onClick={incrementCounter}>
+            counter++
+          </button>
+
+          <button onClick={confirm}>
+            confirm
+          </button>
+
+          <button onClick={closeModal}>
+            close
+          </button>
+        </div>
+      </Modal>
+      ) : null }
     </div>
   );
 }
